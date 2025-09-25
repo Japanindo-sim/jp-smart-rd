@@ -1,531 +1,1135 @@
-<!doctype html>
-<html lang="id">
+<!DOCTYPE html>
+<html lang="id" class="scroll-smooth">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Japan Indo Travel Connection - Landing</title>
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
-  <script src="https://cdn.tailwindcss.com"></script>
-  <!-- SweetAlert2 CDN -->
-  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-  <style>
-    :root { --brand: #ff3b30; --purple-1: #7C1CFF; --purple-2: #9d5eff; }
-    body { font-family: 'Poppins', system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial; }
-    .card-shadow { box-shadow: 0 6px 18px rgba(15, 23, 42, 0.08); }
-    .modal-bg { background: rgba(0,0,0,0.45); }
-    .chip { background: rgba(255,255,255,0.06); padding: 0.25rem .5rem; border-radius: 9999px; }
-    .lang-btn.active { background-color: #f3f4f6; font-weight: 600; }
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JP Smart SIM - Solusi Komunikasi Kenshusei di Jepang</title>
+    
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Google Fonts: Inter & Noto Sans JP -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Noto+Sans+JP:wght@400;700&display=swap" rel="stylesheet">
+    
+    <link rel="icon" type="image/ico" sizes="32x32" href="img/icon.ico">
 
-    .promo-label {
-    position: absolute;
-    top: -1px;
-    right: -1px;
-    padding: 4px 12px;
-    background: linear-gradient(135deg, #ff3b30, #ff7149);
-    color: white;
-    font-size: 10px;
-    font-weight: 700;
-    border-radius: 0 10px 0 10px;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.15);
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
-  }
-  </style>
+    <!-- GSAP (Animation) -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+
+    <!-- SweetAlert2 (Popup Form) -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <style>
+        /* Custom Styles */
+        body {
+            font-family: 'Inter', 'Noto Sans JP', sans-serif;
+            background-color: #0B0B0D;
+            color: #E5E7EB;
+        }
+        
+        /* Enhanced Button Styles */
+        .btn-primary {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            box-shadow: 0 10px 30px -10px rgba(102, 126, 234, 0.5);
+            position: relative;
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+        
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 15px 40px -10px #667eeab3;
+        }
+        
+        .btn-primary::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+            transition: left 0.5s;
+        }
+        
+        .btn-primary:hover::before {
+            left: 100%;
+        }
+        
+        .btn-secondary {
+            background: rgba(255, 255, 255, 0.05);
+            border: 2px solid transparent;
+            background-image: linear-gradient(#0B0B0D, #0B0B0D), linear-gradient(135deg, #667eea, #764ba2);
+            background-origin: border-box;
+            background-clip: padding-box, border-box;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .btn-secondary:hover {
+            background: rgba(255, 255, 255, 0.1);
+            transform: translateY(-2px);
+            box-shadow: 0 15px 40px -10px rgba(102, 126, 234, 0.4);
+        }
+        
+        .btn-glow {
+            background: linear-gradient(45deg, #667eea 30%, #764ba2 90%);
+            box-shadow: 0 3px 5px 2px rgba(255, 105, 135, .3);
+            animation: pulse-glow 2s infinite;
+        }
+        
+        @keyframes pulse-glow {
+            0% {
+                box-shadow: 0 0 20px #764ba2;
+            }
+            50% {
+                box-shadow: 0 0 40px #667eeab3;
+            }
+            100% {
+                box-shadow: 0 0 20px #667eea;
+            }
+        }
+        
+        .hero-overlay {
+            background: linear-gradient(to right, rgba(11, 11, 13, 0.95) 0%, rgba(11, 11, 13, 0.7) 50%, rgba(11, 11, 13, 0.3) 100%);
+        }
+        
+        .navbar-solid {
+            background-color: rgba(17, 17, 17, 0.95);
+            backdrop-filter: blur(20px);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+        }
+        
+        .glass-card {
+            background: rgba(26, 26, 26, 0.5);
+            backdrop-filter: blur(8px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        /* Need Section Card Styles */
+        .need-card {
+            background: linear-gradient(135deg, rgba(26, 26, 26, 0.9) 0%, rgba(17, 17, 17, 0.9) 100%);
+            border: 1px solid rgba(102, 126, 234, 0.2);
+            backdrop-filter: blur(10px);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .need-card::before {
+            content: "";
+            position: absolute;
+            top: -2px;
+            left: -2px;
+            right: -2px;
+            bottom: -2px;
+            background: linear-gradient(45deg, #667eea, #764ba2, #667eea);
+            z-index: -1;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            border-radius: inherit;
+        }
+        
+        .need-card:hover::before {
+            opacity: 1;
+        }
+        
+        .need-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px rgba(102, 126, 234, 0.3);
+        }
+        
+        /* Enhanced Pricing Tab Styles */
+        .tab-container {
+            background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%);
+            box-shadow: inset 0 2px 10px rgba(0, 0, 0, 0.3);
+            position: relative;
+        }
+        
+        .tab-slider {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.5);
+        }
+        
+        .tab-button {
+            position: relative;
+            z-index: 10;
+            transition: all 0.3s ease;
+        }
+        
+        .tab-button.active {
+            color: white;
+            font-weight: 600;
+        }
+        
+        /* Enhanced Pricing Card */
+        .pricing-card {
+            background: linear-gradient(135deg, rgba(26, 26, 26, 0.95) 0%, rgba(17, 17, 17, 0.95) 100%);
+            position: relative;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+        
+        .pricing-card::before {
+            content: "";
+            position: absolute;
+            inset: -2px;
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            border-radius: inherit;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            z-index: -1;
+        }
+        
+        .pricing-card:hover::before {
+            opacity: 1;
+        }
+        
+        .pricing-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 30px 60px rgba(102, 126, 234, 0.4);
+        }
+        
+        .pricing-card.featured {
+            border: 2px solid transparent;
+            background-image: linear-gradient(#1a1a1a, #1a1a1a), linear-gradient(135deg, #667eea, #764ba2);
+            background-origin: border-box;
+            background-clip: padding-box, border-box;
+        }
+        
+        /* Modal Styles */
+        .modal-overlay {
+            background: rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(5px);
+        }
+        
+        .modal-content {
+            background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%);
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+            border: 1px solid rgba(102, 126, 234, 0.3);
+            max-height: 80vh;
+            overflow-y: auto;
+        }
+        
+        .modal-content::-webkit-scrollbar {
+            width: 8px;
+        }
+        
+        .modal-content::-webkit-scrollbar-track {
+            background: #1a1a1a;
+        }
+        
+        .modal-content::-webkit-scrollbar-thumb {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 4px;
+        }
+        
+        /* SweetAlert2 Dark Mode Customization */
+        .swal2-popup {
+            background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%) !important;
+            color: #E5E7EB !important;
+            border-radius: 20px !important;
+            border: 1px solid rgba(102, 126, 234, 0.3) !important;
+        }
+        
+        .swal2-title {
+            color: #ffffff !important;
+        }
+        
+        .swal2-input, .swal2-select, .swal2-textarea {
+            background: #2a2a2a !important;
+            color: #E5E7EB !important;
+            border: 1px solid #4a4a4a !important;
+            border-radius: 10px !important;
+        }
+        
+        .swal2-input:focus, .swal2-select:focus, .swal2-textarea:focus {
+            border-color: #667eea !important;
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.2) !important;
+        }
+        
+        .swal2-confirm {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%) !important;
+        }
+
+        /* SIM Card Float Animation */
+        @keyframes float {
+            0%, 100% { transform: translateY(0) rotate(5deg); }
+            50% { transform: translateY(-20px) rotate(-5deg); }
+        }
+        
+        .float-animation {
+            animation: float 4s ease-in-out infinite;
+        }
+
+        
+    </style>
 </head>
-<body class="bg-gray-50 text-gray-900">
-  <header class="w-full sticky top-0 z-40 bg-white/75 backdrop-blur-sm border-b border-gray-200">
-    <div class="max-w-xl mx-auto px-4 py-3 flex items-center justify-between">
-      <div class="flex items-center">
-        <img src="img/jpsmart-logo.png" alt="Logo Perusahaan" class="h-10 w-auto">
-      </div>
-      <div class="flex items-center gap-3">
-        <div id="langSwitch" class="flex items-center gap-2 text-sm p-1 bg-gray-100 rounded-lg">
-          <button data-lang="id" class="lang-btn active flex items-center gap-2 px-3 py-1 rounded-md">
-            <img src="icon/indonesia.png" alt="ID" class="w-5 h-5 rounded-sm">
-          </button>
-          <button data-lang="jp" class="lang-btn flex items-center gap-2 px-3 py-1 rounded-md">
-            <img src="icon/japan.png" alt="JP" class="w-5 h-5 rounded-sm">
-          </button>
-        </div>
-      </div>
-    </div>
-  </header>
+<body class="overflow-x-hidden">
 
-  <main class="max-w-xl mx-auto px-4 py-6 pb-28">
-    <section class="space-y-4">
-      <div class="bg-white rounded-xl p-4 card-shadow">
-        <div class="rounded-lg flex items-center justify-center mb-4 overflow-hidden">
-          <img src="img/banner1.png" alt="Banner"
-              class="w-full h-auto object-cover rounded-lg">
-        </div>
-          <h2 class="text-base font-semibold" data-translate="fear_title">Anti Stres! Solusi Internet untuk Kenshusei di Jepang.</h2>
-          <p class="text-sm text-gray-600 mt-2 text-justify" data-translate="fear_para">Mendarat di Jepang sebagai kenshusei adalah awal dari sebuah mimpi besar. Namun, bayangkan jika mimpi itu diawali dengan stres: terkurung di Training Center (TC) tanpa bisa memberi kabar keluarga, pusing karena tagihan roaming yang membuat dompet jebol, atau frustrasi karena koneksi internet super lemot saat butuh informasi penting.</p>
-          <p class="text-sm text-gray-600 mt-2 text-justify" data-translate="fear_para">Belum lagi rumitnya mengurus tagihan bulanan dalam bahasa yang masih asing. Semua kecemasan ini nyata dan bisa mengganggu fokusmu di awal petualangan baru. Jangan biarkan masalah koneksi menjadi rintangan pertamamu di Negeri Sakura!</p>
-        </div>
-
-      <div class="bg-white rounded-xl p-4 card-shadow">
-        <div class="rounded-lg flex items-center justify-center mb-4 overflow-hidden">
-          <img src="img/banner3.png" alt="Banner"
-              class="w-full h-auto object-cover rounded-lg">
-        </div>
-        <h2 class="text-base font-semibold" data-translate="why_sim_title">KENSHUSEI BUTUH SIMCARD JEPANG?</h2>
-        <ul class="text-sm text-gray-600 mt-2 list-disc list-inside space-y-1" data-translate="why_sim_list">
-          <li>Komunikasi dengan Keluarga, LPK, Kumiai,dan Perusahaan.</li>
-          <li>Registrasi bank dan m-banking Jepang.</li>
-          <li>Daftar layanan pengiriman uang (remittance).</li>
-          <li>Keperluan darurat seperti menghubungi taksi, polisi, atau kantor pajak.</li>
-          <li>Membuat akun untuk belanja online dan layanan digital lainnya.</li>
-          <li>Untuk penggunaan social media (Instagram, Tiktok, Youtube)</li>
-        </ul>
-      </div>
-      
-      <div class="bg-white rounded-xl p-4 card-shadow">
-        <div class="rounded-lg flex items-center justify-center mb-4 overflow-hidden">
-            <img src="img/banner2.png" alt="Banner"
-            class="w-full h-auto object-cover rounded-lg">
-        </div>
-        <h2 class="text-base font-semibold" data-translate="advantages_title">7 Kelebihan JP SMART SIM</h2>
-        <ul class="text-sm text-gray-600 mt-2 list-disc list-inside space-y-1" data-translate="advantages_list">
-            <li>Sinyal kuat dari provider NTT DOCOMO, mencakup seluruh Jepang.</li>
-            <li>Hemat biaya, tidak perlu beli HP baru karena mendukung HP dari Indonesia.</li>
-            <li>Praktis, biaya bulanan bisa dibayar melalui konbini terdekat.</li>
-            <li>Semua jenis SIM (Call & Data) bisa dipakai untuk registrasi perbankan.</li>
-            <li>Fleksibel, bisa ganti pilihan paket sesuai kebutuhan bulanan Anda.</li>
-            <li>Biaya pembatalan GRATIS, cukup konfirmasi ke Customer Service.</li>
-            <li>Layanan Customer Support multibahasa, termasuk Bahasa Indonesia.</li>
-        </ul>
-      </div>
-    </section>
-
-    <section class="mt-6">
-      <div class="flex items-center justify-between">
-        <h3 class="text-lg font-bold" data-translate="sim_package_title">Paket Sim Card</h3>
-      </div>
-
-      <div class="mt-3 bg-white rounded-xl p-2 card-shadow">
-        <div class="flex gap-2 p-1 rounded-md bg-gray-100">
-          <button
-            class="tab flex-1 py-2 rounded-md text-sm font-medium transition-colors duration-150"
-            data-tab="call"
-            data-translate="call_sim_tab"
-            aria-pressed="true"
-            style="background: #ff3b30; color: #ffffff;"
-          >
-            CALL SIM
-          </button>
-
-          <button
-            class="tab flex-1 py-2 rounded-md text-sm font-medium transition-colors duration-150"
-            data-tab="data"
-            data-translate="data_sim_tab"
-            aria-pressed="false"
-            style="background: transparent; color: #4b5563;" /* #4b5563 = gray-600 */
-          >
-            DATA SIM
-          </button>
-        </div>
-
-        <div id="cards" class="mt-3 grid grid-cols-1 gap-3"></div>
-      </div>
-
-      <script>
-        const ACTIVE_BG = '#ff3b30';
-        const ACTIVE_TEXT = '#ffffff';
-        const INACTIVE_BG = 'transparent';
-        const INACTIVE_TEXT = '#4b5563';
-
-        const tabs = document.querySelectorAll('.tab');
-
-        tabs.forEach(tab => {
-          tab.addEventListener('click', () => {
-            tabs.forEach(t => {
-              t.setAttribute('aria-pressed', 'false');
-              t.style.background = INACTIVE_BG;
-              t.style.color = INACTIVE_TEXT;
-              t.classList.remove('shadow'); 
-            });
-
-            tab.setAttribute('aria-pressed', 'true');
-            tab.style.background = ACTIVE_BG;
-            tab.style.color = ACTIVE_TEXT;
-            tab.classList.add('shadow');
-          });
-
-          tab.addEventListener('keydown', (e) => {
-            if (e.key === 'Enter' || e.key === ' ') {
-              e.preventDefault();
-              tab.click();
-            }
-          });
-        });
-      </script>
-
-        <div id="cards" class="mt-3 grid grid-cols-1 gap-3">
-        </div>
-      </div>
-    </section>
-
-    <div class="fixed bottom-0 left-0 w-full p-4 bg-white/80 backdrop-blur-sm border-t border-gray-200 z-50 flex justify-center">
-      <button id="ctaButton" 
-              class="w-full sm:w-auto sm:px-16 py-3 rounded-xl text-white font-bold text-base shadow-lg transition-transform duration-200 hover:scale-105" 
-              style="background:var(--brand);" 
-              data-translate="register_now_btn">
-        Pesan Sekarang
-      </button>
+<header id="navbar" class="fixed top-0 left-0 right-0 z-50 transition-all duration-300">
+  <nav class="container mx-auto px-6 py-4 flex justify-between items-center">
+    <!-- Logo + Nama -->
+    <div class="flex items-center">
+      <a href="#" class="flex items-center space-x-2">
+        <img src="img/jpsmart-logo.png" alt="JP Smart SIM" class="h-10 w-auto"> 
+      </a>
     </div>
 
-    <footer class="mt-8 text-center py-6">
-      <div class="text-sm text-gray-500 mb-3" data-translate="part_of">Powered By</div>
-      <div class="mx-auto w-40 h-auto flex items-center justify-center">
-        <img id="exataLogo" src="img/jpsmart.png" alt="Part Of EXATA Indonesia" class="max-h-12 cursor-pointer"/>
-      </div>
-    </footer>
-  </main>
-
-  <div id="modal" class="fixed inset-0 hidden items-center justify-center modal-bg z-50">
-    <div class="max-w-md w-full mx-4 bg-white rounded-xl overflow-hidden">
-      <div class="p-4 border-b">
-        <div class="flex items-center justify-between">
-          <h4 class="font-semibold" data-translate="form_title">Form Pendaftaran</h4>
-          <button id="closeModal" class="text-gray-500 hover:text-gray-800">✕</button>
-        </div>
-      </div>
-      <div class="p-4 space-y-3">
-        <label class="block text-xs text-gray-600" data-translate="form_name">Nama</label>
-        <input id="inputName" type="text" class="w-full rounded-md border px-3 py-2 text-sm focus:ring-2 focus:ring-purple-400 focus:border-purple-400 outline-none" placeholder="Nama lengkap" />
-
-        <label class="block text-xs text-gray-600" data-translate="form_phone">Nomor HP (contoh: 628123456789)</label>
-        <input id="inputPhone" type="tel" class="w-full rounded-md border px-3 py-2 text-sm focus:ring-2 focus:ring-purple-400 focus:border-purple-400 outline-none" placeholder="628..." />
-        
-        <div class="flex items-center gap-2 pt-2">
-          <input id="includeSelection" type="checkbox" class="h-4 w-4 rounded text-purple-600 focus:ring-purple-500" checked />
-          <label for="includeSelection" class="text-sm text-gray-600" data-translate="form_include_package">Sertakan paket yang dipilih</label>
-        </div>
-        <div class="flex gap-2 pt-2">
-          <button id="submitForm" class="flex-1 py-3 rounded-md text-white font-semibold transition-transform duration-200 hover:scale-105" style="background:var(--brand);" data-translate="form_send_wa">Daftar Sekarang</button>
-          <button id="resetForm" class="flex-1 py-3 rounded-md border font-semibold hover:bg-gray-100">Reset</button>
-        </div>
-      </div>
+    <!-- Menu Desktop -->
+    <div class="hidden md:flex items-center space-x-8">
+      <a href="#home" class="text-gray-300 hover:text-white transition">Home</a>
+      <a href="#benefit" class="text-gray-300 hover:text-white transition">Benefit</a>
+      <a href="#pricing" class="text-gray-300 hover:text-white transition">Pricing</a>
+      <a href="#daftar" class="btn-primary text-white font-semibold px-6 py-2.5 rounded-full transition-all">
+        Daftar
+      </a>
     </div>
+
+    <!-- Mobile Menu Button -->
+    <button id="mobile-menu-button" class="md:hidden text-white">
+      <i data-lucide="menu" class="w-6 h-6"></i>
+    </button>
+  </nav>
+
+  <!-- Mobile Menu -->
+  <div id="mobile-menu" class="hidden md:hidden bg-[#111111]/95 backdrop-blur-md">
+    <a href="#home" class="block text-center py-3 text-gray-300 hover:bg-gray-700">Home</a>
+    <a href="#benefit" class="block text-center py-3 text-gray-300 hover:bg-gray-700">Benefit</a>
+    <a href="#pricing" class="block text-center py-3 text-gray-300 hover:bg-gray-700">Pricing</a>
+    <a href="#daftar" class="block text-center py-4 bg-gradient-to-r from-purple-600 to-pink-600 text-white font-semibold">Daftar Sekarang</a>
   </div>
+</header>
 
-  <script>
-    const packages = [
-    { id: 'c1', type: 'call', name: '3 GB Call Sim', gb: '3 GB', signal: '5G', roaming: 'No', call: 'Included', sms: 'Included', price: '¥1.408/bulan', },
-    { id: 'c2', type: 'call', name: '20 GB Call Sim', gb: '20 GB', signal: '5G', roaming: 'No', call: 'Included', sms: 'Included', price: '¥2.178/bulan', promo: 'FREE 2 BULAN PERTAMA' },
-    { id: 'c3', type: 'call', name: '100 GB Call Sim', gb: '100 GB', signal: '5G', roaming: 'No', call: 'Included', sms: 'Included', price: '¥5.478/bulan', promo: 'FREE 2 BULAN PERTAMA' },
-    { id: 'd1', type: 'data', name: '3 GB Data Sim', gb: '3 GB', signal: '4G LTE', roaming: 'No', call: 'No', sms: 'Yes', price: '¥1.078/bulan' },
-    { id: 'd2', type: 'data', name: '20 GB Data Sim', gb: '20 GB', signal: '4G LTE', roaming: 'No', call: 'No', sms: 'Yes', price: '¥1.848/bulan', promo: 'FREE 2 BULAN PERTAMA' },
-    { id: 'd3', type: 'data', name: '100 GB Data Sim', gb: '100 GB', signal: '4G LTE', roaming: 'No', call: 'No', sms: 'Yes', price: '¥5.148/bulan', promo: 'FREE 2 BULAN PERTAMA' },
-    ];
-
-    const UI_STRINGS = {
-      'id': {
-        'fear_title': 'Rasa Takut dan Cemas Saat Tiba di Jepang?',
-        'fear_para': 'Sebagai kenshusei, datang pertama kali ke Jepang bisa jadi pengalaman yang mendebarkan sekaligus menakutkan. Bingung bagaimana cara berkomunikasi, tidak tahu harus kemana, dan khawatir tidak bisa beradaptasi. Kami paham perasaan itu dan siap membantu Anda agar merasa lebih aman dan terhubung.',
-        'why_sim_title': 'KENSHUSEI BUTUH SIMCARD JEPANG?',
-        'why_sim_list': `<li>Registrasi bank dan m-banking Jepang.</li><li>Daftar layanan pengiriman uang (remittance).</li><li>Menghubungi pihak perusahaan (kaisha) dan rekan kerja.</li><li>Keperluan darurat seperti menghubungi taksi, polisi, atau kantor pajak.</li><li>Menerima notifikasi layanan publik (peringatan bencana alam).</li><li>Membuat akun untuk belanja online dan layanan digital lainnya.</li>`,
-        'advantages_title': '7 Kelebihan JP SMART SIM',
-        'advantages_list': `<li>Sinyal kuat dari provider NTT DOCOMO, mencakup seluruh Jepang.</li><li>Hemat biaya, tidak perlu beli HP baru karena mendukung HP dari Indonesia.</li><li>Praktis, biaya bulanan bisa dibayar melalui konbini terdekat.</li><li>Semua jenis SIM (Call & Data) bisa dipakai untuk registrasi perbankan.</li><li>Fleksibel, bisa ganti pilihan paket sesuai kebutuhan bulanan Anda.</li><li>Biaya pembatalan GRATIS, cukup konfirmasi ke Customer Service.</li><li>Layanan Customer Support multibahasa, termasuk Bahasa Indonesia.</li>`,
-        'sim_package_title': 'Paket Sim card',
-        'call_sim_tab': 'CALL SIM',
-        'data_sim_tab': 'DATA SIM',
-        'select_button': 'Pilih',
-        'detail_button': 'Detail',
-        'register_now_btn': 'Daftar Sekarang',
-        'part_of': 'Bagian Dari',
-        'form_title': 'Form Pendaftaran',
-        'form_name': 'Nama',
-        'form_phone': 'Nomor HP (contoh: 628123456789)',
-        'form_include_package': 'Sertakan paket yang dipilih',
-        'form_send_wa': 'Kirim ke WhatsApp',
-        'form_reset': 'Reset',
-        'package_selected_toast': 'Paket dipilih:',
-        'fill_all_fields_alert': 'Mohon isi kolom Nama dan Nomor HP.',
-        'whatsapp_link_copied_alert': 'Link WhatsApp telah disalin! Anda akan dialihkan.',
-        'copy_whatsapp_link_prompt': 'Gagal menyalin otomatis. Salin link ini dan buka di WhatsApp:',
-        'greeting_message': 'Halo, saya ingin daftar.'
-      },
-      'jp': {
-        'fear_title': '日本に到着した際の不安ですか？',
-        'fear_para': '研修生として初めて日本に来ることは、刺激的であると同時に不安な経験かもしれません。コミュニケーションの取り方が分からず、どこへ行けばいいのかも分からず、適応できるか心配になることもあるでしょう。私たちはその気持ちを理解し、あなたがより安心し、つながりを感じられるようお手伝いします。',
-        'why_sim_title': '研修生はなぜ日本のSIMカードが必要ですか？',
-        'why_sim_list': `<li>日本の銀行口座とモバイルバンキングの登録。</li><li>海外送金サービス（レミッタンス）の登録。</li><li>会社（会社）や同僚への連絡。</li><li>タクシー、警察、税務署への連絡などの緊急時。</li><li>公共サービス（自然災害警報）の通知受け取り。</li><li>オンラインショッピングやその他デジタルサービスのアカウント作成。</li>`,
-        'advantages_title': 'JPスマートSIMの7つの利点',
-        'advantages_list': `<li>NTTドコモの強力な信号で、日本全国をカバー。</li><li>インドネシアのスマートフォンに対応しているため、新しい携帯電話を買う必要がなく経済的。</li><li>月額料金は最寄りのコンビニで支払えるので便利。</li><li>すべてのSIMタイプ（通話＆データ）が銀行口座の登録に使用可能。</li><li>毎月のニーズに合わせてパッケージを柔軟に変更可能。</li><li>解約料は無料。カスタマーサービスに連絡するだけ。</li><li>インドネシア語を含む多言語カスタマーサポート。</li>`,
-        'sim_package_title': 'SIMカードパッケージ',
-        'call_sim_tab': '通話SIM',
-        'data_sim_tab': 'データSIM',
-        'select_button': '選択',
-        'detail_button': '詳細',
-        'register_now_btn': '今すぐ登録',
-        'part_of': 'の一部',
-        'form_title': '登録フォーム',
-        'form_name': '名前',
-        'form_phone': '電話番号（例：628123456789）',
-        'form_include_package': '選択したパッケージを含める',
-        'form_send_wa': 'WhatsAppに送信',
-        'form_reset': 'リセット',
-        'package_selected_toast': '選択されたパッケージ:',
-        'fill_all_fields_alert': '名前と電話番号の項目をすべて入力してください。',
-        'whatsapp_link_copied_alert': 'WhatsAppリンクがコピーされました！リダイレクトします。',
-        'copy_whatsapp_link_prompt': '自動コピーに失敗しました。このリンクをコピーしてWhatsAppで開いてください：',
-        'greeting_message': 'こんにちは、登録したいです。'
-      }
-    };
-    
-    let currentLang = 'id';
-    let selectedPackage = null;
-    const cardsContainer = document.getElementById('cards');
-
-    function renderCards(filter = 'call'){
-      cardsContainer.innerHTML = '';
-      const list = packages.filter(p => p.type === filter);
-      list.forEach(p => {
-        const isSelected = selectedPackage && selectedPackage.id === p.id;
-        const el = document.createElement('div');
-        el.className = `relative overflow-hidden rounded-xl p-3 bg-white card-shadow border flex flex-col gap-2 transition-all duration-200 ${isSelected ? 'border-purple-600 ring-2 ring-purple-200' : 'border-gray-200'}`;
+<main>
+    <!-- Enhanced Hero Section with SIM Card Image -->
+    <section id="home" class="min-h-screen flex items-center relative overflow-hidden">
+        <div class="absolute inset-0 bg-cover bg-center" style="background-image: url('img/background2.png');">
+            <div class="absolute inset-0 hero-overlay"></div>
+        </div>
         
-        const promoLabel = p.promo ? `<div class="promo-label">${p.promo}</div>` : '';
-
-        el.innerHTML = `
-          ${promoLabel}
-          <div class="flex items-center justify-between">
-            <div>
-              <div class="text-sm font-semibold">${p.name}</div>
-              <div class="text-xs text-gray-500">${p.signal} • Roaming: ${p.roaming}</div>
+        <div class="container mx-auto px-6 relative z-10">
+            <div class="grid md:grid-cols-2 gap-12 items-center">
+                <div class="text-white">
+                    <h1 id="hero-title" class="text-4xl md:text-6xl font-extrabold leading-tight mb-6">
+                        Solusi Internet Terbaik untuk <span class="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-purple-600">Kenshusei di Jepang</span>
+                    </h1>
+                    <p id="hero-subtitle" class="text-lg md:text-xl text-gray-300 mb-8">
+                        Koneksi lancar, biaya hemat, dan dukungan penuh Bahasa Indonesia.
+                    </p>
+                    <div id="hero-cta" class="flex flex-col sm:flex-row gap-4">
+                        <button onclick="openForm()" class="btn-primary flex items-center justify-center gap-2 text-white font-bold py-4 px-8 rounded-full text-lg">
+                            <span>DAFTAR SEKARANG</span>
+                            <i data-lucide="arrow-right" class="w-5 h-5"></i>
+                        </button>
+                        <a href="#pricing" class="btn-secondary flex items-center justify-center gap-2 text-white font-bold py-4 px-8 rounded-full text-lg">
+                            <span>Lihat Paket</span>
+                            <i data-lucide="package" class="w-5 h-5"></i>
+                        </a>
+                    </div>
+                </div>
+                
+                <!-- SIM Card Visual -->
+                <div class="hidden md:block relative">
+                    <div class="float-animation">
+                        <svg viewBox="0 0 400 250" class="w-full max-w-md mx-auto">
+                            <!-- SIM Card -->
+                            <defs>
+                                <linearGradient id="simGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                                    <stop offset="0%" style="stop-color:#667eea;stop-opacity:1" />
+                                    <stop offset="100%" style="stop-color:#764ba2;stop-opacity:1" />
+                                </linearGradient>
+                                <filter id="glow">
+                                    <feGaussianBlur stdDeviation="4" result="coloredBlur"/>
+                                    <feMerge>
+                                        <feMergeNode in="coloredBlur"/>
+                                        <feMergeNode in="SourceGraphic"/>
+                                    </feMerge>
+                                </filter>
+                            </defs>
+                            
+                            <!-- Card Body -->
+                            <rect x="50" y="30" width="300" height="190" rx="15" fill="url(#simGradient)" filter="url(#glow)"/>
+                            
+                            <!-- Chip -->
+                            <rect x="90" y="80" width="60" height="45" rx="5" fill="#FFD700" opacity="0.9"/>
+                            <line x1="90" y1="95" x2="150" y2="95" stroke="#B8860B" stroke-width="1"/>
+                            <line x1="90" y1="110" x2="150" y2="110" stroke="#B8860B" stroke-width="1"/>
+                            <line x1="120" y1="80" x2="120" y2="125" stroke="#B8860B" stroke-width="1"/>
+                            
+                            <!-- Logo Text -->
+                            <text x="200" y="70" font-family="Inter" font-size="24" font-weight="bold" fill="white">JP Smart</text>
+                            <text x="200" y="95" font-family="Inter" font-size="16" fill="white" opacity="0.8">DOCOMO Network</text>
+                            
+                            <!-- Numbers -->
+                            <text x="90" y="160" font-family="monospace" font-size="18" fill="white" opacity="0.9">8190 •••• •••• ••••</text>
+                            
+                            <!-- 5G Badge -->
+                            <rect x="280" y="160" width="50" height="25" rx="12" fill="white" opacity="0.2"/>
+                            <text x="295" y="177" font-family="Inter" font-size="14" font-weight="bold" fill="white">5G</text>
+                        </svg>
+                    </div>
+                    
+                    <!-- Decorative Elements -->
+                    <div class="absolute -top-10 -right-10 w-32 h-32 bg-purple-600 rounded-full opacity-20 blur-3xl"></div>
+                    <div class="absolute -bottom-10 -left-10 w-40 h-40 bg-blue-600 rounded-full opacity-20 blur-3xl"></div>
+                </div>
             </div>
-            <div class="text-sm font-bold">${p.price}</div>
-          </div>
-          <div class="flex items-center justify-between text-xs text-gray-600">
-            <div>GB: ${p.gb}</div>
-            <div>Telp: ${p.call}</div>
-            <div>SMS: ${p.sms}</div>
-          </div>
-          <div class="mt-2 flex gap-2">
-            <button data-id="${p.id}" class="selectPkg flex-1 py-2 rounded-md text-sm font-semibold transition-colors duration-200 ${isSelected ? 'bg-purple-600 text-white' : 'border hover:bg-gray-50'}">${UI_STRINGS[currentLang].select_button}</button>
-            <button data-id="${p.id}" class="infoPkg flex-1 py-2 rounded-md bg-gray-100 hover:bg-gray-200 text-sm font-semibold transition-colors duration-200">${UI_STRINGS[currentLang].detail_button}</button>
-          </div>
-        `;
-        cardsContainer.appendChild(el);
-      });
-      attachCardListeners();
-    }
+        </div>
+    </section>
 
-    function attachCardListeners(){
-      document.querySelectorAll('.selectPkg').forEach(b => {
-        b.addEventListener('click', (e) => {
-          const id = e.currentTarget.dataset.id;
-          selectPackage(id);
-        });
-      });
-      document.querySelectorAll('.infoPkg').forEach(b => {
-        b.addEventListener('click', (e) => {
-          const id = e.currentTarget.dataset.id;
-          const p = packages.find(x=>x.id===id);
-          Swal.fire({
-              title: p.name,
-              html: `
-                <ul class="text-left space-y-2 mx-auto max-w-xs text-sm">
-                  <li class="flex justify-between border-b pb-1"><span><b>Data:</b></span> <span>${p.gb}</span></li>
-                  <li class="flex justify-between border-b pb-1"><span><b>Sinyal:</b></span> <span>${p.signal}</span></li>
-                  <li class="flex justify-between border-b pb-1"><span><b>Roaming:</b></span> <span>${p.roaming}</span></li>
-                  <li class="flex justify-between border-b pb-1"><span><b>Telepon:</b></span> <span>${p.call}</span></li>
-                  <li class="flex justify-between"><span><b>SMS:</b></span> <span>${p.sms}</span></li>
-                  <li class="mt-4 text-lg text-center"><b>${p.price}</b></li>
+    <!-- Story / Fear Block -->
+    <section id="story-block" class="py-20 md:py-32 relative bg-cover bg-center bg-fixed" style="background-image: url('https://images.unsplash.com/photo-1503160865245-3382d2a21e42?q=80&w=1974&auto=format&fit=crop');">
+         <div class="absolute inset-0 bg-[#0B0B0D]/85 backdrop-blur-md"></div>
+         <div class="container mx-auto px-6 text-center relative z-10">
+            <h2 class="text-3xl md:text-4xl font-bold mb-6 text-white">Baru Tiba di Jepang Sebagai Kenshusei?</h2>
+            <p class="max-w-3xl mx-auto text-gray-300 leading-relaxed text-lg">
+                Jangan biarkan isolasi di Training Center, biaya roaming yang mahal, atau kendala bahasa saat mengurus bank menghambat awal perjalananmu. Koneksi internet yang andal adalah kunci untuk tetap terhubung dengan keluarga, kumiai, dan semua layanan penting di Jepang.
+            </p>
+         </div>
+    </section>
+
+    <!-- Enhanced Need Section with Cards -->
+    <section class="py-20 md:py-24 bg-[#111111]">
+        <div class="container mx-auto px-6">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl md:text-4xl font-bold text-white">Kenapa SIM Card Jepang Begitu Penting?</h2>
+                <p class="mt-3 text-gray-400">Semua kebutuhan esensialmu sebagai kenshusei bergantung pada koneksi yang stabil.</p>
+            </div>
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-6xl mx-auto">
+                <!-- Need Card 1 -->
+                <div class="need-card p-6 rounded-2xl">
+                    <div class="flex items-start space-x-4">
+                        <div class="flex-shrink-0 w-14 h-14 rounded-xl bg-gradient-to-br from-blue-500 to-indigo-600 flex items-center justify-center shadow-lg shadow-blue-500/30">
+                           <i data-lucide="phone" class="w-7 h-7 text-white"></i>
+                        </div>
+                        <div>
+                            <h3 class="font-bold text-xl text-white mb-2">Komunikasi Penting</h3>
+                            <p class="text-gray-400 text-sm">Hubungi keluarga di Indonesia, LPK, Kumiai, dan perusahaan dengan mudah.</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Need Card 2 -->
+                <div class="need-card p-6 rounded-2xl">
+                    <div class="flex items-start space-x-4">
+                        <div class="flex-shrink-0 w-14 h-14 rounded-xl bg-gradient-to-br from-green-500 to-teal-600 flex items-center justify-center shadow-lg shadow-green-500/30">
+                           <i data-lucide="landmark" class="w-7 h-7 text-white"></i>
+                        </div>
+                        <div>
+                            <h3 class="font-bold text-xl text-white mb-2">Registrasi Bank</h3>
+                            <p class="text-gray-400 text-sm">Nomor telepon Jepang diperlukan untuk membuka rekening dan aktivasi mobile banking.</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Need Card 3 -->
+                <div class="need-card p-6 rounded-2xl">
+                    <div class="flex items-start space-x-4">
+                        <div class="flex-shrink-0 w-14 h-14 rounded-xl bg-gradient-to-br from-purple-500 to-pink-600 flex items-center justify-center shadow-lg shadow-purple-500/30">
+                           <i data-lucide="badge-japanese-yen" class="w-7 h-7 text-white"></i>
+                        </div>
+                        <div>
+                            <h3 class="font-bold text-xl text-white mb-2">Layanan Remittance</h3>
+                            <p class="text-gray-400 text-sm">Daftar layanan kirim uang ke Indonesia dengan nomor telepon lokal.</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Need Card 4 -->
+                <div class="need-card p-6 rounded-2xl">
+                    <div class="flex items-start space-x-4">
+                        <div class="flex-shrink-0 w-14 h-14 rounded-xl bg-gradient-to-br from-red-500 to-orange-600 flex items-center justify-center shadow-lg shadow-red-500/30">
+                           <i data-lucide="siren" class="w-7 h-7 text-white"></i>
+                        </div>
+                        <div>
+                            <h3 class="font-bold text-xl text-white mb-2">Keperluan Darurat</h3>
+                            <p class="text-gray-400 text-sm">Panggil taksi, polisi, atau hubungi kantor pajak saat dibutuhkan.</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Need Card 5 -->
+                <div class="need-card p-6 rounded-2xl">
+                    <div class="flex items-start space-x-4">
+                        <div class="flex-shrink-0 w-14 h-14 rounded-xl bg-gradient-to-br from-yellow-500 to-amber-600 flex items-center justify-center shadow-lg shadow-yellow-500/30">
+                           <i data-lucide="shopping-cart" class="w-7 h-7 text-white"></i>
+                        </div>
+                        <div>
+                            <h3 class="font-bold text-xl text-white mb-2">Belanja Online</h3>
+                            <p class="text-gray-400 text-sm">Verifikasi akun untuk Amazon, Rakuten, dan layanan digital lainnya.</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Need Card 6 -->
+                <div class="need-card p-6 rounded-2xl">
+                    <div class="flex items-start space-x-4">
+                        <div class="flex-shrink-0 w-14 h-14 rounded-xl bg-gradient-to-br from-cyan-500 to-sky-600 flex items-center justify-center shadow-lg shadow-cyan-500/30">
+                           <i data-lucide="instagram" class="w-7 h-7 text-white"></i>
+                        </div>
+                        <div>
+                            <h3 class="font-bold text-xl text-white mb-2">Media Sosial</h3>
+                            <p class="text-gray-400 text-sm">Update momen berhargamu di Jepang tanpa khawatir kuota habis.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Benefit Section -->
+    <section id="benefit" class="py-20 md:py-24">
+         <div class="container mx-auto px-6">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl md:text-4xl font-bold text-white">7 Kelebihan JP Smart SIM</h2>
+                <p class="mt-3 text-gray-400">Didesain khusus untuk memenuhi kebutuhan kenshusei di Jepang.</p>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Benefit Cards -->
+                <div class="glass-card p-6 rounded-2xl benefit-card">
+                    <i data-lucide="radio-tower" class="w-10 h-10 text-blue-500 mb-4"></i>
+                    <h3 class="font-bold text-xl mb-2 text-white">Sinyal Kuat NTT DOCOMO</h3>
+                    <p class="text-gray-400">Jangkauan sinyal terbaik di seluruh penjuru Jepang.</p>
+                </div>
+                <div class="glass-card p-6 rounded-2xl benefit-card">
+                    <i data-lucide="hand-coins" class="w-10 h-10 text-blue-500 mb-4"></i>
+                    <h3 class="font-bold text-xl mb-2 text-white">Hemat Biaya & Praktis</h3>
+                    <p class="text-gray-400">Tidak perlu ganti HP, langsung pakai HP dari Indonesia.</p>
+                </div>
+                <div class="glass-card p-6 rounded-2xl benefit-card">
+                    <i data-lucide="store" class="w-10 h-10 text-blue-500 mb-4"></i>
+                    <h3 class="font-bold text-xl mb-2 text-white">Bayar di Konbini</h3>
+                    <p class="text-gray-400">Pembayaran tagihan bulanan mudah di konbini terdekat.</p>
+                </div>
+                <div class="glass-card p-6 rounded-2xl benefit-card">
+                    <i data-lucide="landmark" class="w-10 h-10 text-blue-500 mb-4"></i>
+                    <h3 class="font-bold text-xl mb-2 text-white">Bisa untuk Registrasi Bank</h3>
+                    <p class="text-gray-400">Terverifikasi untuk semua kebutuhan administrasi perbankan.</p>
+                </div>
+                <div class="glass-card p-6 rounded-2xl benefit-card">
+                    <i data-lucide="repeat" class="w-10 h-10 text-blue-500 mb-4"></i>
+                    <h3 class="font-bold text-xl mb-2 text-white">Paket Fleksibel</h3>
+                    <p class="text-gray-400">Ganti paket data sesuai kebutuhanmu setiap bulan.</p>
+                </div>
+                <div class="glass-card p-6 rounded-2xl benefit-card">
+                    <i data-lucide="banknote-x" class="w-10 h-10 text-blue-500 mb-4"></i>
+                    <h3 class="font-bold text-xl mb-2 text-white">Biaya Pembatalan GRATIS</h3>
+                    <p class="text-gray-400">Berhenti berlangganan kapan saja tanpa denda.</p>
+                </div>
+                <div class="glass-card p-6 rounded-2xl benefit-card md:col-span-2 lg:col-span-1">
+                    <i data-lucide="languages" class="w-10 h-10 text-blue-500 mb-4"></i>
+                    <h3 class="font-bold text-xl mb-2 text-white">Support Bahasa Indonesia</h3>
+                    <p class="text-gray-400">Customer service siap membantu dalam Bahasa Indonesia.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Special Offer -->
+    <section id="daftar" class="py-16 md:py-24">
+    <div class="container mx-auto px-4 sm:px-6">
+        <div class="promo-box-neon rounded-3xl p-6 sm:p-8 md:p-12 max-w-4xl mx-auto relative text-center">
+            <div class="relative z-20">
+                <!-- Gambar promo -->
+                <img src="img/promo.png" 
+                        alt="Promo Gratis Internet 2 Bulan Pertama" 
+                        class="rounded-2xl shadow-lg w-full h-auto max-w-md sm:max-w-lg md:max-w-xl mx-auto">
+
+                <!-- Tombol di bawah gambar -->
+                <button onclick="openForm('20 GB Call SIM')" 
+                        class="btn-glow text-white font-bold 
+                                py-3 px-6 text-base 
+                                md:py-4 md:px-8 md:text-lg 
+                                rounded-full shadow-lg transition-all hover:scale-105 
+                                mt-8">
+                    Ambil Promo Sekarang!
+                </button>
+            </div>
+        </div>
+    </div>
+    </section>
+
+
+    <!-- Enhanced Pricing Section -->
+    <section id="pricing" class="py-20 md:py-24 bg-[#111111]">
+        <div class="container mx-auto px-6">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl md:text-4xl font-bold text-white">Pilihan Paket Sesuai Kebutuhanmu</h2>
+                <p class="mt-3 text-gray-400">Pilih paket dengan atau tanpa panggilan telepon.</p>
+            </div>
+
+            <!-- Enhanced Tabs -->
+            <div class="tab-container relative flex p-1 rounded-full max-w-sm mx-auto mb-10">
+                <div id="tab-slider" class="tab-slider absolute top-1 left-1 h-[calc(100%-8px)] w-1/2 rounded-full transition-all duration-500 ease-out"></div>
+                <button id="call-sim-tab" class="tab-button active w-1/2 py-3 px-6 rounded-full transition">
+                    <i data-lucide="phone" class="inline w-4 h-4 mr-2"></i>
+                    CALL SIM
+                </button>
+                <button id="data-sim-tab" class="tab-button w-1/2 py-3 px-6 rounded-full transition text-gray-400">
+                    <i data-lucide="signal" class="inline w-4 h-4 mr-2"></i>
+                    DATA SIM
+                </button>
+            </div>
+
+            <!-- Pricing Cards -->
+            <div id="pricing-cards">
+                <!-- CALL SIM Plans -->
+                <div id="call-sim-plans" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                    <div class="pricing-card p-8 rounded-3xl" data-package="3 GB Call SIM">
+                        <div class="text-center">
+                            <h3 class="text-2xl font-bold text-white mb-2">3 GB</h3>
+                            <p class="text-gray-400 mb-4">CALL SIM</p>
+                            <div class="mb-6">
+                                <span class="text-5xl font-bold text-white">¥1,408</span>
+                                <span class="text-gray-400">/bulan</span>
+                            </div>
+                        </div>
+                        <ul class="space-y-4 mb-8">
+                            <li class="flex items-center text-gray-300">
+                                <i data-lucide="check-circle" class="w-5 h-5 text-green-500 mr-3 flex-shrink-0"></i>
+                                <span>3 GB Data Bulanan</span>
+                            </li>
+                            <li class="flex items-center text-gray-300">
+                                <i data-lucide="check-circle" class="w-5 h-5 text-green-500 mr-3 flex-shrink-0"></i>
+                                <span>Jaringan 5G/4G LTE</span>
+                            </li>
+                            <li class="flex items-center text-gray-300">
+                                <i data-lucide="check-circle" class="w-5 h-5 text-green-500 mr-3 flex-shrink-0"></i>
+                                <span>Bisa Telepon & SMS</span>
+                            </li>
+                            <li class="flex items-center text-gray-300">
+                                <i data-lucide="check-circle" class="w-5 h-5 text-green-500 mr-3 flex-shrink-0"></i>
+                                <span>Terima Kode OTP Bank</span>
+                            </li>
+                        </ul>
+                        <button onclick="openForm('3 GB Call SIM')" class="w-full btn-primary py-3 px-6 rounded-full text-white font-semibold">
+                            Pilih Paket Ini
+                        </button>
+                    </div>
+                    
+                    <div class="pricing-card featured p-8 rounded-3xl relative" data-package="20 GB Call SIM">
+                        <div class="absolute -top-4 left-1/2 transform -translate-x-1/2">
+                            <span class="bg-gradient-to-r from-red-500 to-pink-500 text-white text-xs font-bold px-4 py-2 rounded-full uppercase tracking-wider">
+                                PILIHAN TERBAIK
+                            </span>
+                        </div>
+                        <div class="text-center">
+                            <h3 class="text-2xl font-bold text-white mb-2 mt-4">20 GB</h3>
+                            <p class="text-gray-400 mb-4">CALL SIM</p>
+                            <div class="mb-6">
+                                <span class="text-5xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-purple-600">¥2,178</span>
+                                <span class="text-gray-400">/bulan</span>
+                            </div>
+                        </div>
+                        <ul class="space-y-4 mb-8">
+                            <li class="flex items-center text-gray-300">
+                                <i data-lucide="check-circle" class="w-5 h-5 text-green-500 mr-3 flex-shrink-0"></i>
+                                <span>20 GB Data Bulanan</span>
+                            </li>
+                            <li class="flex items-center text-gray-300">
+                                <i data-lucide="check-circle" class="w-5 h-5 text-green-500 mr-3 flex-shrink-0"></i>
+                                <span>Jaringan 5G/4G LTE</span>
+                            </li>
+                            <li class="flex items-center text-gray-300">
+                                <i data-lucide="check-circle" class="w-5 h-5 text-green-500 mr-3 flex-shrink-0"></i>
+                                <span>Bisa Telepon & SMS</span>
+                            </li>
+                            <li class="flex items-center text-gray-300">
+                                <i data-lucide="check-circle" class="w-5 h-5 text-green-500 mr-3 flex-shrink-0"></i>
+                                <span>Terima Kode OTP Bank</span>
+                            </li>
+                            <li class="flex items-center text-yellow-400 font-semibold">
+                                <i data-lucide="gift" class="w-5 h-5 text-yellow-500 mr-3 flex-shrink-0"></i>
+                                <span>FREE 2 Bulan Pertama!</span>
+                            </li>
+                        </ul>
+                        <button onclick="openForm('20 GB Call SIM')" class="w-full btn-glow py-3 px-6 rounded-full text-white font-semibold">
+                            Pilih Paket Ini
+                        </button>
+                    </div>
+                    
+                    <div class="pricing-card p-8 rounded-3xl" data-package="100 GB Call SIM">
+                        <div class="text-center">
+                            <h3 class="text-2xl font-bold text-white mb-2">100 GB</h3>
+                            <p class="text-gray-400 mb-4">CALL SIM</p>
+                            <div class="mb-6">
+                                <span class="text-5xl font-bold text-white">¥5,478</span>
+                                <span class="text-gray-400">/bulan</span>
+                            </div>
+                        </div>
+                        <ul class="space-y-4 mb-8">
+                            <li class="flex items-center text-gray-300">
+                                <i data-lucide="check-circle" class="w-5 h-5 text-green-500 mr-3 flex-shrink-0"></i>
+                                <span>100 GB Data Bulanan</span>
+                            </li>
+                            <li class="flex items-center text-gray-300">
+                                <i data-lucide="check-circle" class="w-5 h-5 text-green-500 mr-3 flex-shrink-0"></i>
+                                <span>Jaringan 5G/4G LTE</span>
+                            </li>
+                            <li class="flex items-center text-gray-300">
+                                <i data-lucide="check-circle" class="w-5 h-5 text-green-500 mr-3 flex-shrink-0"></i>
+                                <span>Bisa Telepon & SMS</span>
+                            </li>
+                            <li class="flex items-center text-gray-300">
+                                <i data-lucide="check-circle" class="w-5 h-5 text-green-500 mr-3 flex-shrink-0"></i>
+                                <span>Terima Kode OTP Bank</span>
+                            </li>
+                            <li class="flex items-center text-yellow-400 font-semibold">
+                                <i data-lucide="gift" class="w-5 h-5 text-yellow-500 mr-3 flex-shrink-0"></i>
+                                <span>FREE 2 Bulan Pertama!</span>
+                            </li>
+                        </ul>
+                        <button onclick="openForm('100 GB Call SIM')" class="w-full btn-primary py-3 px-6 rounded-full text-white font-semibold">
+                            Pilih Paket Ini
+                        </button>
+                    </div>
+                </div>
+                
+                <!-- DATA SIM Plans -->
+                <div id="data-sim-plans" class="hidden grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                    <div class="pricing-card p-8 rounded-3xl" data-package="3 GB Data SIM">
+                        <div class="text-center">
+                            <h3 class="text-2xl font-bold text-white mb-2">3 GB</h3>
+                            <p class="text-gray-400 mb-4">DATA SIM</p>
+                            <div class="mb-6">
+                                <span class="text-5xl font-bold text-white">¥1,078</span>
+                                <span class="text-gray-400">/bulan</span>
+                            </div>
+                        </div>
+                        <ul class="space-y-4 mb-8">
+                            <li class="flex items-center text-gray-300">
+                                <i data-lucide="check-circle" class="w-5 h-5 text-green-500 mr-3 flex-shrink-0"></i>
+                                <span>3 GB Data Bulanan</span>
+                            </li>
+                            <li class="flex items-center text-gray-300">
+                                <i data-lucide="check-circle" class="w-5 h-5 text-green-500 mr-3 flex-shrink-0"></i>
+                                <span>Jaringan 4G LTE</span>
+                            </li>
+                            <li class="flex items-center text-gray-400">
+                                <i data-lucide="x-circle" class="w-5 h-5 text-red-500 mr-3 flex-shrink-0"></i>
+                                <span>Tidak Bisa Telepon</span>
+                            </li>
+                            <li class="flex items-center text-gray-300">
+                                <i data-lucide="check-circle" class="w-5 h-5 text-green-500 mr-3 flex-shrink-0"></i>
+                                <span>Terima SMS OTP</span>
+                            </li>
+                        </ul>
+                        <button onclick="openForm('3 GB Data SIM')" class="w-full btn-primary py-3 px-6 rounded-full text-white font-semibold">
+                            Pilih Paket Ini
+                        </button>
+                    </div>
+                    
+                    <div class="pricing-card p-8 rounded-3xl" data-package="20 GB Data SIM">
+                        <div class="text-center">
+                            <h3 class="text-2xl font-bold text-white mb-2">20 GB</h3>
+                            <p class="text-gray-400 mb-4">DATA SIM</p>
+                            <div class="mb-6">
+                                <span class="text-5xl font-bold text-white">¥1,848</span>
+                                <span class="text-gray-400">/bulan</span>
+                            </div>
+                        </div>
+                        <ul class="space-y-4 mb-8">
+                            <li class="flex items-center text-gray-300">
+                                <i data-lucide="check-circle" class="w-5 h-5 text-green-500 mr-3 flex-shrink-0"></i>
+                                <span>20 GB Data Bulanan</span>
+                            </li>
+                            <li class="flex items-center text-gray-300">
+                                <i data-lucide="check-circle" class="w-5 h-5 text-green-500 mr-3 flex-shrink-0"></i>
+                                <span>Jaringan 4G LTE</span>
+                            </li>
+                            <li class="flex items-center text-gray-400">
+                                <i data-lucide="x-circle" class="w-5 h-5 text-red-500 mr-3 flex-shrink-0"></i>
+                                <span>Tidak Bisa Telepon</span>
+                            </li>
+                            <li class="flex items-center text-gray-300">
+                                <i data-lucide="check-circle" class="w-5 h-5 text-green-500 mr-3 flex-shrink-0"></i>
+                                <span>Terima SMS OTP</span>
+                            </li>
+                            <li class="flex items-center text-yellow-400 font-semibold">
+                                <i data-lucide="gift" class="w-5 h-5 text-yellow-500 mr-3 flex-shrink-0"></i>
+                                <span>FREE 2 Bulan Pertama!</span>
+                            </li>
+                        </ul>
+                        <button onclick="openForm('20 GB Data SIM')" class="w-full btn-primary py-3 px-6 rounded-full text-white font-semibold">
+                            Pilih Paket Ini
+                        </button>
+                    </div>
+                    
+                    <div class="pricing-card p-8 rounded-3xl" data-package="100 GB Data SIM">
+                        <div class="text-center">
+                            <h3 class="text-2xl font-bold text-white mb-2">100 GB</h3>
+                            <p class="text-gray-400 mb-4">DATA SIM</p>
+                            <div class="mb-6">
+                                <span class="text-5xl font-bold text-white">¥5,148</span>
+                                <span class="text-gray-400">/bulan</span>
+                            </div>
+                        </div>
+                        <ul class="space-y-4 mb-8">
+                            <li class="flex items-center text-gray-300">
+                                <i data-lucide="check-circle" class="w-5 h-5 text-green-500 mr-3 flex-shrink-0"></i>
+                                <span>100 GB Data Bulanan</span>
+                            </li>
+                            <li class="flex items-center text-gray-300">
+                                <i data-lucide="check-circle" class="w-5 h-5 text-green-500 mr-3 flex-shrink-0"></i>
+                                <span>Jaringan 4G LTE</span>
+                            </li>
+                            <li class="flex items-center text-gray-400">
+                                <i data-lucide="x-circle" class="w-5 h-5 text-red-500 mr-3 flex-shrink-0"></i>
+                                <span>Tidak Bisa Telepon</span>
+                            </li>
+                            <li class="flex items-center text-gray-300">
+                                <i data-lucide="check-circle" class="w-5 h-5 text-green-500 mr-3 flex-shrink-0"></i>
+                                <span>Terima SMS OTP</span>
+                            </li>
+                            <li class="flex items-center text-yellow-400 font-semibold">
+                                <i data-lucide="gift" class="w-5 h-5 text-yellow-500 mr-3 flex-shrink-0"></i>
+                                <span>FREE 2 Bulan Pertama!</span>
+                            </li>
+                        </ul>
+                        <button onclick="openForm('100 GB Data SIM')" class="w-full btn-primary py-3 px-6 rounded-full text-white font-semibold">
+                            Pilih Paket Ini
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</main>
+
+<!-- Footer -->
+<footer class="bg-[#1a1a1a] text-gray-400">
+    <div class="container mx-auto px-6 py-12">
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <div>
+                <p>Powered by</p>
+                <div class="flex items-center space-x-3 mb-4">
+                    <img src="img/logo-jp-smart.png" alt="JP Smart Logo" class="w-[160px] h-auto">
+                </div>
+                <p>Solusi komunikasi terpercaya untuk Kenshusei Indonesia di Jepang.</p>
+                <div class="flex space-x-4 mt-4">
+                    <a href="https://www.instagram.com/jpsmart_id/" class="hover:text-white"><i data-lucide="instagram"></i></a>
+                    <a href="https://www.facebook.com/profile.php?id=61578202057772" class="hover:text-white"><i data-lucide="facebook"></i></a>
+                    <a href="wa.me//628118680138" class="hover:text-white"><i data-lucide="message-circle"></i></a>
+                </div>
+            </div>
+            <div>
+                <h3 class="text-lg font-semibold text-white mb-4">Links</h3>
+                <ul class="space-y-2">
+                    <li><a href="#" onclick="showModal('privacy'); return false;" class="hover:text-white transition">Privacy Policy</a></li>
+                    <li><a href="#" onclick="showModal('terms'); return false;" class="hover:text-white transition">Terms & Conditions</a></li>
+                    <li><a href="#" onclick="showModal('faq'); return false;" class="hover:text-white transition">FAQ</a></li>
                 </ul>
-              `,
-              icon: 'info',
-              confirmButtonText: 'Tutup',
-              confirmButtonColor: 'var(--brand)'
+            </div>
+            <div>
+                <h3 class="text-lg font-semibold text-white mb-4">Customer Support</h3>
+                <h1 class="text-2xl font-semibold text-green-500 mb-2">081385294467</h1>
+                <p>Customer Support kami siap melayani dalam Bahasa Indonesia.</p>
+            </div>
+        </div>
+        <div class="mt-12 border-t border-gray-700 pt-8 text-center text-sm">
+            <p>&copy; <span id="copyright-year"></span> JP Smart SIM. All Rights Reserved.</p>
+        </div>
+    </div>
+</footer>
+
+<!-- Floating CTA for Mobile -->
+<a href="#daftar" id="floating-cta" class="fixed bottom-5 right-5 bg-gradient-to-r from-blue-600 to-purple-600 text-white p-4 rounded-full shadow-lg z-40 md:hidden transition-all duration-300 opacity-0 transform translate-y-10 hover:scale-110">
+  <i data-lucide="edit" class="w-6 h-6"></i>
+</a>
+
+<!-- Modal Container for Privacy, Terms, FAQ -->
+<div id="modalOverlay" class="modal-overlay fixed inset-0 z-[60] hidden flex items-center justify-center p-4" onclick="closeModal()">
+    <div class="modal-content rounded-3xl p-6 md:p-8 w-full max-w-3xl" onclick="event.stopPropagation()">
+        <div class="flex justify-between items-center mb-4">
+            <h2 id="modalTitle" class="text-2xl font-bold text-white"></h2>
+            <button onclick="closeModal()" class="text-gray-400 hover:text-white transition">
+                <i data-lucide="x" class="w-6 h-6"></i>
+            </button>
+        </div>
+        <div id="modalBody" class="text-gray-300 leading-relaxed"></div>
+    </div>
+</div>
+
+<script>
+    // Initialize Lucide Icons
+    lucide.createIcons();
+    
+    document.addEventListener('DOMContentLoaded', () => {
+        
+        // Navbar Scroll Effect
+        const navbar = document.getElementById('navbar');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 50) {
+                navbar.classList.add('navbar-solid');
+            } else {
+                navbar.classList.remove('navbar-solid');
+            }
+        });
+
+        // Mobile Menu Toggle
+        const mobileMenuButton = document.getElementById('mobile-menu-button');
+        const mobileMenu = document.getElementById('mobile-menu');
+        mobileMenuButton.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+        });
+        
+        // Close mobile menu when a link is clicked
+        document.querySelectorAll('#mobile-menu a').forEach(link => {
+            link.addEventListener('click', () => {
+                mobileMenu.classList.add('hidden');
             });
         });
-      });
-    }
 
-    function selectPackage(id){
-      selectedPackage = packages.find(p => p.id === id);
-      showToast(`${UI_STRINGS[currentLang].package_selected_toast} ${selectedPackage.name}`);
-      const currentFilter = document.querySelector('.tab.bg-white').dataset.tab;
-      renderCards(currentFilter);
-    }
-
-    function showToast(text){
-      const Toast = Swal.mixin({
-        toast: true,
-        position: 'top-end',
-        showConfirmButton: false,
-        timer: 3000,
-        timerProgressBar: true,
-        didOpen: (toast) => {
-          toast.onmouseenter = Swal.stopTimer;
-          toast.onmouseleave = Swal.resumeTimer;
-        }
-      });
-      Toast.fire({
-        icon: 'success',
-        title: text
-      });
-    }
-
-    document.querySelectorAll('.tab').forEach(btn => {
-      btn.addEventListener('click', (e) => {
-        document.querySelectorAll('.tab').forEach(x=>x.classList.remove('bg-white','shadow'));
-        e.currentTarget.classList.add('bg-white','shadow');
-        renderCards(e.currentTarget.dataset.tab);
-      });
-    });
-    document.querySelector('.tab[data-tab="call"]').classList.add('bg-white','shadow');
-    renderCards('call');
-
-    const modal = document.getElementById('modal');
-    document.getElementById('ctaButton').addEventListener('click', ()=> modal.classList.remove('hidden'));
-    document.getElementById('closeModal').addEventListener('click', ()=> modal.classList.add('hidden'));
-    window.addEventListener('click', (e)=>{ if(e.target === modal) modal.classList.add('hidden'); });
-    
-    document.getElementById('resetForm').addEventListener('click', ()=>{
-      document.getElementById('inputName').value = '';
-      document.getElementById('inputPhone').value = '';
-    });
-
-    document.getElementById('submitForm').addEventListener('click', ()=>{
-      const name = document.getElementById('inputName').value.trim();
-      const phone = document.getElementById('inputPhone').value.trim();
-      const includeSel = document.getElementById('includeSelection').checked;
-
-      if(!name || !phone){
-        Swal.fire({
-            title: 'Data Tidak Lengkap',
-            text: UI_STRINGS[currentLang].fill_all_fields_alert,
-            icon: 'warning',
-            confirmButtonColor: 'var(--brand)'
-        });
-        return;
-      }
-
-      let message = `${UI_STRINGS[currentLang].greeting_message}\n\n*Nama:* ${name}\n*Nomor HP:* ${phone}`;
-      if(includeSel && selectedPackage){
-        message += `\n*Paket Dipilih:* ${selectedPackage.name} (${selectedPackage.price})`;
-      }
-
-      const encoded = encodeURIComponent(message);
-      const wa = `https://wa.me/628118680138?text=${encoded}`;
-      
-      Swal.fire({
-        title: 'Konfirmasi',
-        text: "Anda akan dialihkan ke WhatsApp untuk mengirim data pendaftaran.",
-        icon: 'info',
-        showCancelButton: true,
-        confirmButtonColor: '#25D366',
-        cancelButtonColor: '#d33',
-        confirmButtonText: 'Kirim Pendaftaran',
-        cancelButtonText: 'Batal'
-      }).then((result) => {
-        if (result.isConfirmed) {
-            window.open(wa, '_blank');
-        }
-      })
-    });
-
-    function applyLang(lang){
-      currentLang = lang;
-      document.documentElement.lang = lang;
-      document.querySelectorAll('[data-translate]').forEach(el => {
-        const key = el.getAttribute('data-translate');
-        if (UI_STRINGS[lang][key]) {
-            if (el.tagName === 'UL') {
-                el.innerHTML = UI_STRINGS[lang][key];
+        // Floating CTA visibility
+        const floatingCta = document.getElementById('floating-cta');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 400) {
+                floatingCta.classList.remove('opacity-0', 'translate-y-10');
             } else {
-                el.innerText = UI_STRINGS[lang][key];
+                floatingCta.classList.add('opacity-0', 'translate-y-10');
             }
+        // Sticky CTA Banner Logic (Updated)
+        const storyBlock = document.getElementById('story-block');
+        const stickyCtaBanner = document.getElementById('sticky-cta-banner');
+
+        const observerOptions = {
+            root: null, 
+            threshold: 0 // Trigger as soon as a single pixel is visible
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                // If the story block is intersecting OR it is already above the viewport (user has scrolled past it)
+                if (entry.isIntersecting || entry.boundingClientRect.y < 0) {
+                    // Show the button
+                    stickyCtaBanner.classList.remove('translate-y-full');
+                } else {
+                    // Otherwise, hide it (user is in the hero section)
+                    stickyCtaBanner.classList.add('translate-y-full');
+                }
+            });
+        }, observerOptions);
+
+        // Start observing the story block section
+        if (storyBlock) {
+            observer.observe(storyBlock);
         }
-      });
-      document.querySelectorAll('.lang-btn').forEach(btn => {
-        btn.classList.toggle('active', btn.dataset.lang === lang);
-      });
-      const currentFilter = document.querySelector('.tab.bg-white').dataset.tab;
-      renderCards(currentFilter);
-    }
-    
-    document.querySelectorAll('.lang-btn').forEach(b => {
-      b.addEventListener('click', (e) => {
-        applyLang(e.currentTarget.dataset.lang);
-      });
+        
+        });
+
+        // GSAP Animations
+        gsap.registerPlugin(ScrollTrigger);
+        gsap.from("header", { y: -100, opacity: 0, duration: 1.2, ease: 'power3.out' });
+        gsap.from("#hero-title", { opacity: 0, y: 30, duration: 1, delay: 0.5 });
+        gsap.from("#hero-subtitle", { opacity: 0, y: 30, duration: 1, delay: 0.8 });
+        gsap.from("#hero-cta", { opacity: 0, y: 30, duration: 1, delay: 1.1 });
+        gsap.from(".float-animation", { opacity: 0, scale: 0.8, duration: 1, delay: 1.3, ease: 'power3.out' });
+        
+        gsap.utils.toArray(".need-card, .benefit-card, .pricing-card").forEach((card, i) => {
+            gsap.from(card, {
+                scrollTrigger: {
+                    trigger: card,
+                    start: "top 85%",
+                    toggleActions: "play none none none"
+                },
+                opacity: 0,
+                y: 50,
+                duration: 0.8,
+                delay: i % 3 * 0.1, // Stagger cards in a row
+                ease: 'power3.out'
+            });
+        });
+
+        // Enhanced Pricing Tabs Logic
+        const callSimTab = document.getElementById('call-sim-tab');
+        const dataSimTab = document.getElementById('data-sim-tab');
+        const callSimPlans = document.getElementById('call-sim-plans');
+        const dataSimPlans = document.getElementById('data-sim-plans');
+        const tabSlider = document.getElementById('tab-slider');
+
+        function activateTab(tab, plansToShow, plansToHide, sliderTransform) {
+            tabSlider.style.transform = sliderTransform;
+            callSimTab.classList.toggle('active', tab === callSimTab);
+            callSimTab.classList.toggle('text-gray-400', tab !== callSimTab);
+            dataSimTab.classList.toggle('active', tab === dataSimTab);
+            dataSimTab.classList.toggle('text-gray-400', tab !== dataSimTab);
+
+            plansToShow.classList.remove('hidden');
+            plansToHide.classList.add('hidden');
+            lucide.createIcons();
+            
+            // Re-trigger animation for newly visible cards
+            gsap.from(plansToShow.querySelectorAll('.pricing-card'), {
+                opacity: 0,
+                y: 20,
+                duration: 0.5,
+                stagger: 0.1,
+                ease: 'power2.out'
+            });
+        }
+
+        callSimTab.addEventListener('click', () => {
+            activateTab(callSimTab, callSimPlans, dataSimPlans, 'translateX(0%)');
+        });
+
+        dataSimTab.addEventListener('click', () => {
+            activateTab(dataSimTab, dataSimPlans, callSimPlans, 'translateX(100%)');
+        });
+
+        // Set Copyright Year
+        document.getElementById('copyright-year').textContent = new Date().getFullYear();
     });
 
-    //pop up
+    // SweetAlert2 Form Logic
+    function openForm(selectedPackage = '') {
+        Swal.fire({
+            title: 'Form Pendaftaran JP Smart SIM',
+            html: `
+                <input id="swal-input-name" class="swal2-input" placeholder="Nama Lengkap" required>
+                <input id="swal-input-whatsapp" class="swal2-input" placeholder="Nomor WhatsApp (cth: 62812...)" required>
+                <select id="swal-input-package" class="swal2-select">
+                    <option value="">-- Pilih Paket --</option>
+                    <option value="3 GB Call SIM">3 GB Call SIM (¥1.408/bln)</option>
+                    <option value="20 GB Call SIM">20 GB Call SIM (¥2.178/bln) - Promo FREE 2 Bulan</option>
+                    <option value="100 GB Call SIM">100 GB Call SIM (¥5.478/bln) - Promo FREE 2 Bulan</option>
+                    <option value="3 GB Data SIM">3 GB Data SIM (¥1.078/bln)</option>
+                    <option value="20 GB Data SIM">20 GB Data SIM (¥1.848/bln) - Promo FREE 2 Bulan</option>
+                    <option value="100 GB Data SIM">100 GB Data SIM (¥5.148/bln) - Promo FREE 2 Bulan</option>
+                </select>
+                <input id="swal-input-email" class="swal2-input" type="email" placeholder="Email (opsional)">
+                <textarea id="swal-input-message" class="swal2-textarea" placeholder="Pesan tambahan (opsional)" style="height: 100px;"></textarea>
+            `,
+            confirmButtonText: 'Kirim via WhatsApp',
+            showCancelButton: true,
+            cancelButtonText: 'Batal',
+            focusConfirm: false,
+            didOpen: () => {
+                if (selectedPackage) {
+                    document.getElementById('swal-input-package').value = selectedPackage;
+                }
+            },
+            preConfirm: () => {
+                const name = document.getElementById('swal-input-name').value;
+                const whatsapp = document.getElementById('swal-input-whatsapp').value;
+                const pkg = document.getElementById('swal-input-package').value;
+                const email = document.getElementById('swal-input-email').value;
+                const message = document.getElementById('swal-input-message').value;
 
-    function showSpecialOfferPopup() {
-  let timerInterval;
+                if (!name || !whatsapp || !pkg) {
+                Swal.showValidationMessage(`Nama, Nomor WhatsApp, dan Paket wajib diisi`);
+                return false;
+                }
 
-  Swal.fire({
-    title: 'Special Offer!',
-    html: `
-      <p class="text-base text-gray-700">Cukup bayar biaya aktivasi sekali saja:</p>
-      <div class="my-3 text-5xl font-bold" style="color: var(--brand);">
-        ¥3300
-      </div>
-      <p class="text-lg font-semibold text-gray-800">
-        Anda langsung dapat <b class="text-green-600">GRATIS Internet 2 Bulan!</b><br>
-        <span class="text-sm font-normal text-gray-500">(Kuota hingga 100GB per bulan)</span>
-      </p>
-      <div class="mt-4 text-sm text-gray-600">
-        Penawaran ini berakhir dalam:
-      </div>
-      <div id="special-offer-timer" class="text-2xl font-bold text-gray-800 tracking-wider">
-        05:00
-      </div>
-    `,
-    imageUrl: 'https://media2.giphy.com/media/v1.Y2lkPTc5MGI3NjExZGg4dHNhNndwbGtnc29kYjZmN3k0cnpndmN2ZTQxM2d3ZjN2amNmYyZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/wWcLeiYQ61220DMagm/giphy.gif',
-    imageWidth: 150,
-    imageHeight: 150,
-    imageAlt: 'Special Offer Gift',
-    confirmButtonText: 'Ambil Penawaran!',
-    confirmButtonColor: 'var(--brand)',
-    allowOutsideClick: true, 
-    allowEscapeKey: true, 
+                if (!/^62\d{9,13}$/.test(whatsapp)) {
+                Swal.showValidationMessage(`Format Nomor WhatsApp salah. Gunakan 62... (contoh: 628123456789)`);
+                return false;
+                }
+
+                return { name, whatsapp, pkg, email, message };
+            }
+            }).then((result) => {
+            // Cek apakah tombol konfirmasi ('Kirim via WhatsApp') yang ditekan
+            if (result.isConfirmed) {
+                const data = result.value;
+                const adminWhatsapp = '628118680138'; // Nomor Admin
+
+                // Menyusun pesan WhatsApp
+                let waMessage = `Halo Admin JP Smart SIM,\n\nSaya ingin mendaftar untuk paket SIM Card dengan detail berikut:\n- *Nama Lengkap:* ${data.name}\n- *Paket Dipilih:* ${data.pkg}\n- *Nomor WhatsApp:* ${data.whatsapp}`;
+
+                if (data.email) {
+                waMessage += `\n- *Email:* ${data.email}`;
+                }
+                if (data.message) {
+                waMessage += `\n- *Pesan Tambahan:* ${data.message}`;
+                }
+                waMessage += `\n\nMohon informasi langkah selanjutnya. Terima kasih.`;
+
+                // Membuat URL WhatsApp
+                const whatsappUrl = `https://wa.me/${adminWhatsapp}?text=${encodeURIComponent(waMessage)}`;
+
+                window.open(whatsappUrl, '_blank');
+
+                Swal.fire({
+                title: 'Berhasil!',
+                text: 'Formulir Anda sedang dialihkan ke WhatsApp.',
+                icon: 'success',
+                timer: 2500, 
+                showConfirmButton: false
+                });
+            }
+            });
+            }
     
-    didOpen: () => {
-      const timerElement = document.getElementById('special-offer-timer');
-      let duration = 5 * 60; 
-
-      timerInterval = setInterval(() => {
-        duration--; 
-        
-        if (duration < 0) {
-          clearInterval(timerInterval);
-          Swal.close();
-          return;
+    // Modal Logic
+    const modalContentData = {
+        privacy: {
+            title: 'Kebijakan Privasi',
+            body: `<p class="mb-4">Kami sangat menghargai privasi Anda. Informasi pribadi yang Anda berikan melalui formulir pendaftaran hanya akan digunakan untuk tujuan pemrosesan pesanan SIM Card Anda dan untuk menghubungi Anda terkait layanan kami. Kami tidak akan membagikan data Anda kepada pihak ketiga tanpa persetujuan Anda.</p>
+                   <p>Data yang kami kumpulkan meliputi nama, nomor WhatsApp, email (opsional), dan pilihan paket. Semua data disimpan dengan aman.</p>`
+        },
+        terms: {
+            title: 'Syarat & Ketentuan',
+            body: `<h4 class="font-bold text-lg mb-2 text-white">1. Pendaftaran</h4>
+                   <p class="mb-4">Dengan mengisi formulir pendaftaran, Anda setuju untuk dihubungi oleh tim kami melalui WhatsApp untuk proses verifikasi dan aktivasi.</p>
+                   <h4 class="font-bold text-lg mb-2 text-white">2. Pembayaran</h4>
+                   <p class="mb-4">Biaya pendaftaran awal sebesar ¥3.300. Tagihan bulanan akan dikirimkan sesuai siklus dan dapat dibayarkan melalui konbini.</p>
+                   <h4 class="font-bold text-lg mb-2 text-white">3. Promo</h4>
+                   <p class="mb-4">Promo gratis 2 bulan pertama hanya berlaku untuk paket 20 GB Call SIM dan untuk pendaftar baru.</p>
+                   <h4 class="font-bold text-lg mb-2 text-white">4. Pembatalan</h4>
+                   <p>Anda dapat membatalkan langganan kapan saja tanpa biaya penalti dengan menghubungi customer service kami.</p>`
+        },
+        faq: {
+            title: 'Pertanyaan yang Sering Diajukan (FAQ)',
+            body: `<div class="space-y-4">
+                        <div>
+                            <h4 class="font-semibold text-white">Apakah SIM Card ini bisa digunakan di HP dari Indonesia?</h4>
+                            <p>Tentu saja! Selama HP Anda sudah mendukung jaringan 4G/LTE dan statusnya 'Unlocked' (tidak terikat operator), SIM Card kami bisa langsung digunakan.</p>
+                        </div>
+                        <div>
+                            <h4 class="font-semibold text-white">Bagaimana cara saya membayar tagihan bulanan?</h4>
+                            <p>Kami akan mengirimkan barcode pembayaran setiap bulan yang bisa Anda bayarkan di semua jaringan konbini (7-Eleven, FamilyMart, Lawson, dll).</p>
+                        </div>
+                        <div>
+                            <h4 class="font-semibold text-white">Kapan saya akan menerima SIM Card setelah mendaftar?</h4>
+                            <p>Setelah pendaftaran Anda terverifikasi, SIM Card akan dikirim ke alamat Anda di Jepang dan biasanya tiba dalam 2-3 hari kerja.</p>
+                        </div>
+                   </div>`
         }
+    };
 
-        const minutes = Math.floor(duration / 60);
-        const seconds = duration % 60;
+    function showModal(type) {
+        const overlay = document.getElementById('modalOverlay');
+        const titleEl = document.getElementById('modalTitle');
+        const bodyEl = document.getElementById('modalBody');
 
-        timerElement.textContent = `${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
-        
-      }, 1000);
-    },
-
-    willClose: () => {
-      clearInterval(timerInterval); 
+        if (modalContentData[type]) {
+            titleEl.textContent = modalContentData[type].title;
+            bodyEl.innerHTML = modalContentData[type].body;
+            overlay.classList.remove('hidden');
+            document.body.style.overflow = 'hidden'; // Prevent background scroll
+        }
     }
-  }).then((result) => {
-    if (result.isConfirmed) {
-      document.getElementById('modal').classList.remove('hidden');
-      
-      Swal.fire({
-        title: 'Bagus!',
-        text: 'Silakan isi form pendaftaran untuk mengklaim penawaran Anda.',
-        icon: 'info',
-        confirmButtonColor: 'var(--brand)',
-      });
+
+    function closeModal() {
+        const overlay = document.getElementById('modalOverlay');
+        overlay.classList.add('hidden');
+        document.body.style.overflow = ''; // Restore scroll
     }
-  });
-}
+</script>
 
-setTimeout(showSpecialOfferPopup, 20000); 
+<div id="sticky-cta-banner" class="fixed bottom-0 left-0 right-0 z-40 md:hidden transition-all duration-500 ease-in-out transform translate-y-full">
+    <button onclick="openForm('20 GB Call SIM')" class="btn-glow text-white font-bold w-full py-4 text-lg">
+        Daftar Sekarang!
+    </button>
+</div>
 
-  </script>
 </body>
 </html>
